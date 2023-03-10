@@ -1,6 +1,4 @@
 import { RoleEnum, UserEntity } from '../models/user/user.entity';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { roleBasedAccessControl } from '../role-based-access-control';
 
 export const UserResource = {
@@ -16,9 +14,22 @@ export const UserResource = {
     },
     properties: {
       birth_date: {
+        type: 'date',
         custom: {
-          role: 'ADMIN',
+          edit: [RoleEnum.ADMIN],
         },
+      },
+      email: {
+        isVisible: false,
+      },
+      role: {
+        isVisible: false,
+      },
+      id: {
+        isVisible: false,
+      },
+      password: {
+        isVisible: false,
       },
     },
   },

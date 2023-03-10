@@ -12,20 +12,17 @@ export class UserEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ApiProperty()
-  @Column()
+  @Column({ default: null, nullable: true })
   email: string;
 
-  @ApiProperty()
-  @Column()
+  @Column({ default: null, nullable: true })
   password: string;
 
-  @ApiProperty()
   @Column({ type: 'enum', enum: RoleEnum, default: RoleEnum.USER })
   role: RoleEnum;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
   @ApiProperty()
@@ -33,21 +30,18 @@ export class UserEntity extends BaseEntity {
   birth_date: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   city: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ nullable: true })
   street: string;
 
   @ApiProperty()
-  @Column({
-    type: 'boolean',
-    default: false,
-  })
+  @Column({ type: 'boolean', default: false })
   hasADog: boolean;
 
   @ApiProperty()
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
   photo: string;
 }
