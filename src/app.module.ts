@@ -1,36 +1,25 @@
 import { Module } from '@nestjs/common';
 import { AdminModule } from '@adminjs/nestjs';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { authenticate } from './auth';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DatabaseConnectionService } from './shared/services/database-connection.service';
-import { UserModule } from './user/user.module';
+import { UserModule } from './models/user/user.module';
 import * as AdminJSTypeorm from '@adminjs/typeorm';
 import AdminJS from 'adminjs';
-import { UserEntity } from './user/user.entity';
-
-const DEFAULT_ADMIN = {
-  email: 'admin@example.com',
-  password: 'password',
-};
+import { UserEntity } from './models/user/user.entity';
+import { dbOptions } from './database-connection';
+import { ConfigModule } from '@nestjs/config';
 
 AdminJS.registerAdapter({
   Resource: AdminJSTypeorm.Resource,
   Database: AdminJSTypeorm.Database,
 });
 
-const authenticate = async (email: string, password: string) => {
-  if (email === DEFAULT_ADMIN.email && password === DEFAULT_ADMIN.password) {
-    return Promise.resolve(DEFAULT_ADMIN);
-  }
-  return null;
-};
-
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useClass: DatabaseConnectionService,
+    ConfigModule.forRoot({
+      isGlobal: true,
     }),
+    TypeOrmModule.forRoot(dbOptions()),
     UserModule,
     AdminModule.createAdminAsync({
       useFactory: () => ({
@@ -51,7 +40,5 @@ const authenticate = async (email: string, password: string) => {
       }),
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
