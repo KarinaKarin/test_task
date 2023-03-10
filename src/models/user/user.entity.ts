@@ -22,11 +22,11 @@ export class UserEntity extends BaseEntity {
   role: RoleEnum;
 
   @ApiProperty()
-  @Column({ nullable: true })
+  @Column()
   name: string;
 
   @ApiProperty()
-  @Column({ type: 'date' })
+  @Column({ type: 'date', nullable: true })
   birth_date: string;
 
   @ApiProperty()

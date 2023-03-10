@@ -1,4 +1,3 @@
-import React from 'react';
 import { ActionContext, Before, buildFeature, RecordJSON } from 'adminjs';
 
 const roleAccessControlAfterHook = async (
