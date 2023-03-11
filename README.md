@@ -35,6 +35,8 @@ $ npm install
 ## Running the app
 
 ```bash
+1. Create database
+2. Start server:
 # development
 $ npm run start
 
@@ -43,6 +45,7 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+3. Execute init.sql
 ```
 
 ## Test
