@@ -41,7 +41,16 @@ export class UserEntity extends BaseEntity {
   @Column({ type: 'boolean', default: false })
   hasADog: boolean;
 
-  @ApiProperty()
-  @Column({ type: 'varchar', nullable: true })
-  photo: string;
+  @ApiProperty({
+    description: 'key to user photo: bucket_number/photo.jpeg',
+    example: '5/panda.jpeg',
+  })
+  @Column({ nullable: true })
+  s3Key: 'string';
+
+  @Column({ nullable: true })
+  bucket: 'string';
+
+  @Column({ nullable: true })
+  mime: 'string';
 }

@@ -1,6 +1,7 @@
 import { RoleEnum, UserEntity } from '../models/user/user.entity';
 import { roleBasedAccessControl } from '../role-based-access-control';
 import { ValidationError } from 'adminjs';
+import uploadFeature from '@adminjs/upload';
 
 const validateForm = (request) => {
   const { payload = {}, method } = request;
@@ -13,9 +14,15 @@ const validateForm = (request) => {
   return request;
 };
 
+const localProvider = {
+  bucket: 'public/photos',
+  opts: {
+    baseUrl: '/photos',
+  },
+};
+
 export const UserResource = {
   resource: UserEntity,
-  features: [roleBasedAccessControl],
   options: {
     actions: {
       new: {
@@ -50,6 +57,28 @@ export const UserResource = {
       password: {
         isVisible: false,
       },
+      s3Key: {
+        isVisible: false,
+      },
+      bucket: {
+        isVisible: false,
+      },
+      mime: {
+        isVisible: false,
+      },
     },
   },
+  features: [
+    roleBasedAccessControl,
+    uploadFeature({
+      provider: { local: localProvider },
+      properties: {
+        file: 'photo',
+        key: 's3Key',
+        bucket: 'bucket',
+        mimeType: 'mime',
+      },
+      validation: { mimeTypes: ['image/png', 'image/jpeg', 'image/webp'] },
+    }),
+  ],
 };

@@ -23,6 +23,7 @@
     "@adminjs/express": "^5.1.0",
     "@adminjs/nestjs": "^5.1.1",
     "@adminjs/typeorm": "^4.0.0",
+    "@adminjs/upload": "^3.0.1",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
     "@nestjs/core": "^9.0.0",
